@@ -1,0 +1,166 @@
+:root { 
+  --alto: #dddddd;
+  --gray: #7f7e7e;
+  --iron: #d8d8d8;
+  --wwwwooribankcomalto: #d4d4d4;
+  --wwwwooribankcomanakiwa: #9cc5fd;
+  --wwwwooribankcomblack: #000000;
+  --wwwwooribankcomboulder: #777777;
+  --wwwwooribankcomcatskill-white: #f4f7fa;
+  --wwwwooribankcomchartreuse-yellow: #e9f2ff;
+  --wwwwooribankcomdodger-blue: #3a8dfd;
+  --wwwwooribankcomdove-gray: #666666;
+  --wwwwooribankcomemperor: #555555;
+  --wwwwooribankcomgallery: #ebebeb;
+  --wwwwooribankcomgray: #7f7f7f;
+  --wwwwooribankcomlochmara: #0082cd;
+  --wwwwooribankcommercury: #e6e6e6;
+  --wwwwooribankcomnero: #ffffff;
+  --wwwwooribankcomyellow: #f9f4ff;
+ 
+  --font-size-l: 15px;
+  --font-size-m: 14px;
+  --font-size-s: 12px;
+  --font-size-xl: 16px;
+  --font-size-xs: 11px;
+  --font-size-xxl: 18px;
+  --font-size-xxxl: 22px;
+ 
+  --font-family-inter: "Inter", Helvetica;
+  --font-family-noto_sans_kr: "Noto Sans KR", Helvetica;
+}
+.wwwwooribankcominterregular-11 {
+  font-family: var(--font-family-inter);
+  font-size: var(--font-size-xs);
+  font-style: normal;
+  font-weight: 400;
+  letter-spacing: 0;
+}
+
+.wwwwooribankcominterbold-14 {
+  font-family: var(--font-family-inter);
+  font-size: var(--font-size-m);
+  font-style: normal;
+  font-weight: 700;
+  letter-spacing: -1px;
+}
+
+.notosanskr-bold-black-15px {
+  color: var(--wwwwooribankcomblack);
+  font-family: var(--font-family-noto_sans_kr);
+  font-size: var(--font-size-l);
+  font-style: normal;
+  font-weight: 700;
+}
+
+.notosanskr-light-gray-12px {
+  color: var(--wwwwooribankcomgray);
+  font-family: var(--font-family-noto_sans_kr);
+  font-size: var(--font-size-s);
+  font-style: normal;
+  font-weight: 300;
+}
+
+.notosanskr-light-granite-gray-11px {
+  color: var(--wwwwooribankcomdove-gray);
+  font-family: var(--font-family-noto_sans_kr);
+  font-size: var(--font-size-xs);
+  font-style: normal;
+  font-weight: 300;
+}
+
+.notosanskr-light-black-15px {
+  color: var(--wwwwooribankcomblack);
+  font-family: var(--font-family-noto_sans_kr);
+  font-size: var(--font-size-l);
+  font-style: normal;
+  font-weight: 300;
+}
+
+.notosanskr-light-granite-gray-14px {
+  color: var(--wwwwooribankcomdove-gray);
+  font-family: var(--font-family-noto_sans_kr);
+  font-size: var(--font-size-m);
+  font-style: normal;
+  font-weight: 300;
+}
+
+.notosanskr-light-black-14px {
+  color: var(--wwwwooribankcomblack);
+  font-family: var(--font-family-noto_sans_kr);
+  font-size: var(--font-size-m);
+  font-style: normal;
+  font-weight: 300;
+}
+
+.notosanskr-light-white-14px {
+  color: var(--wwwwooribankcomnero);
+  font-family: var(--font-family-noto_sans_kr);
+  font-size: var(--font-size-m);
+  font-style: normal;
+  font-weight: 300;
+}
+
+.notosanskr-bold-black-22px {
+  color: var(--wwwwooribankcomblack);
+  font-family: var(--font-family-noto_sans_kr);
+  font-size: var(--font-size-xxxl);
+  font-style: normal;
+  font-weight: 700;
+}
+
+.notosanskr-bold-black-18px {
+  color: var(--wwwwooribankcomblack);
+  font-family: var(--font-family-noto_sans_kr);
+  font-size: var(--font-size-xxl);
+  font-style: normal;
+  font-weight: 700;
+}
+
+.notosanskr-bold-granite-gray-12px {
+  color: var(--wwwwooribankcomdove-gray);
+  font-family: var(--font-family-noto_sans_kr);
+  font-size: var(--font-size-s);
+  font-style: normal;
+  font-weight: 700;
+}
+
+.notosanskr-bold-white-22px {
+  color: var(--wwwwooribankcomnero);
+  font-family: var(--font-family-noto_sans_kr);
+  font-size: var(--font-size-xxxl);
+  font-style: normal;
+  font-weight: 700;
+}
+
+.notosanskr-bold-gray-16px {
+  color: var(--gray);
+  font-family: var(--font-family-noto_sans_kr);
+  font-size: var(--font-size-xl);
+  font-style: normal;
+  font-weight: 700;
+}
+
+.notosanskr-bold-fuscous-gray-19px {
+  color: var(--wwwwooribankcomemperor);
+  font-family: var(--font-family-noto_sans_kr);
+  font-size: 19px;
+  font-style: normal;
+  font-weight: 700;
+}
+
+.notosanskr-light-fuscous-gray-12px {
+  color: var(--wwwwooribankcomemperor);
+  font-family: var(--font-family-noto_sans_kr);
+  font-size: var(--font-size-s);
+  font-style: normal;
+  font-weight: 300;
+}
+
+.notosanskr-light-black-12px {
+  color: var(--wwwwooribankcomblack);
+  font-family: var(--font-family-noto_sans_kr);
+  font-size: var(--font-size-s);
+  font-style: normal;
+  font-weight: 300;
+}

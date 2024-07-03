@@ -1,0 +1,495 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="ko" lang="ko">
+<head>
+	<meta http-equiv="x-ua-compatible" content="IE=edge">
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<meta name="naver-site-verification" content="a8f714bdbbf08acd830048b83dcdb1078a4aeb9b" />
+	<meta name="description" content="오늘의 행복으로 내일을 만드는 해피은행 공식 사이트입니다">
+	<meta name="keywords" content="해피은행, 해피은행 인터넷뱅킹, 계좌조회, 이체, 대출, 외화 환전, 공과금납부, 상품신규, 사고신고 안내">
+	<meta name="robots" content="index,follow"></meta>
+	<title>해피은행</title>
+	<link  rel="stylesheet" href="css/base.css" type="text/css" />
+	<link  rel="stylesheet" href="css/intro_new.css" type="text/css" />
+
+	<!--[if gt IE 9]><!-->
+	<link  rel="stylesheet" href="css/intro.trans.css" type="text/css" />
+
+	
+	<link  rel="stylesheet" href="css/import.css" type="text/css" />
+	<link rel="stylesheet" href="css/position/position.css" type="text/css" />
+	
+	
+	
+	<!--<![endif]-->
+	<!--[if lt IE 7]>
+	<link  rel="stylesheet" href="https://simg.wooribank.com/css/intro.ie6.css?1364207957000" type="text/css" />
+	<![endif]-->
+	<script  type="text/javascript" src="js/com/jquery-1.7.1.min.js"></script>
+
+	<script  type="text/javascript" src="js/com/jquery-ui-1.10.2.custom.min.js"></script>
+
+	<script  type="text/javascript" src="com/jquery.bgpos.min.js"></script>
+
+	<script  type="text/javascript" src="js/com/wbui.min.js"></script>
+
+	<!--[if lt IE 7]>
+	<![endif]-->
+	<script  type="text/javascript" src="js/com/wbui.intro.js"></script>
+	<script type="text/javascript">
+		var varUA	=	navigator.userAgent.toLowerCase();
+		var varREF	=	document.referrer;
+		var varDOM = document.domain;
+		if ((varUA.indexOf("iphone") > -1) || (varUA.indexOf("ipod") > -1) || (varUA.indexOf("ipad") > -1) || varUA.indexOf("android") > -1) {
+			if (varREF.indexOf("wooribank.com") < 0) {
+				if (varDOM.indexOf("index.html")  > -1) {
+					location.href="index.html";				
+				}
+			}
+		}
+	</script>
+		<!-- 나중에 링크 거는 거 바꾸기!!!!!-->
+	<script type="application/ld+json">
+	{
+	"@context":"http://schema.org",
+	"@type":"Person",
+	"name":"happybank",
+	"url":"index.html",
+	"sameAs":
+		[
+		"http://m.post.naver.com/my.nhn?memberNo=38946978",
+		"http://tv.naver.com/wooribanktv",
+		"https://www.facebook.com/wooribank",
+		"https://www.instagram.com/wooribank_kr",
+		"https://www.youtube.com/user/wooribank",
+		"https://itunes.apple.com/kr/app/id1470181651",
+		"https://play.google.com/store/apps/details?id=com.wooribank.smart.npib&hl=ko"
+		]
+	}
+	</script>
+</head> 
+<!--[if lt IE 7]><body class="intro msie ie6 lt-ie9 lt-ie8 lt-ie7 lt-css3"><![endif]-->
+<!--[if IE 7]>   <body class="intro msie ie7 lt-ie9 lt-ie8 lt-css3"><![endif]-->
+<!--[if IE 8]>   <body class="intro msie ie8 lt-ie9 lt-css3"><![endif]-->
+<!--[if IE 9]>   <body class="intro msie ie9 css3"><![endif]-->
+<!--[if gt IE 9]><!-->
+<body class="intro css3 transition">
+<!--<![endif]-->
+		<div id="accNav">
+		<p><a href="#container" class="skip">본문으로 바로가기</a></p>
+		<p><a href="#introFoot" class="skip">하단 전체메뉴로 바로가기</a></p>
+		<p><a href="https://spot.wooribank.com/pot/Dream?withyou=CQIBG0050">웹접근성 이용안내 바로가기</a></p>
+		</div>
+	<div id="wrap">
+
+		<!-- container -->
+		<div id="container">
+			<!-- content -->
+			<div id="content">
+
+<script  type="text/javascript" src="https://simg.wooribank.com/js/com/common.js?1525668543000"></script>
+
+
+
+<script  type="text/javascript" src="https://simg.wooribank.com/js/onetouch/com/lib/swiper.jquery.min.js?1465297202000"></script>
+	
+<script  type="text/javascript" src="https://simg.wooribank.com/js/com/search_ui.js?1362313617000"></script>
+
+<script  type="text/javascript" src="https://simg.wooribank.com/js/pot/fx/w.jquery.slides.min.js?1491901202000"></script>
+
+<script type="text/javascript">
+	
+	function goBoardDetailLink(pageURL, boardId, articleId) {
+		document.boardViewFrm.action = pageURL;
+		document.boardViewFrm.BOARD_ID.value = boardId;
+		document.boardViewFrm.ARTICLE_ID.value = articleId;
+	    document.boardViewFrm.submit();
+	}
+		
+	function showLogoutWarning(dis) {
+		wbUI.openPopup('/pib/jcc?withyou=ps&__ID=c018195' + '&dis=' + dis);
+	}
+	function showLogoutWarningCd(dis) {
+		wbUI.openPopup('/pib/jcc?withyou=ps&__ID=c022255' + '&dis=' + dis);
+	}
+	
+	
+	function getRenewalCardURL() {
+		var renewalCardURL = 'https://pc.wooricard.com'; 
+		if('test' == 'real'){
+			renewalCardURL = 'https://twww.wooricard.com';
+		}
+		else if('development' == 'real'){
+			renewalCardURL = 'https://dwww.wooricard.com';
+		}
+		else {
+			renewalCardURL = 'https://pc.wooricard.com';
+		}
+		return renewalCardURL;
+	}
+	function goRenewalCardInfo() {
+		var renewalCardInfoURL = getRenewalCardURL() + '/dcpc/yh1/mlk/mlk01/crd/H1MLK201S86.do?ent_id=00001';
+		window.open(renewalCardInfoURL);
+	}
+	function goRenewalCardApply() {
+		var renewalCardInfoURL = getRenewalCardURL() + '/dcpc/yh1/crd/crd02/H1CRD202S00.do?ctgrCd=M110003&hiPrdCtgrCd=M110003&ent_id=00001';
+		window.open(renewalCardInfoURL);
+	}
+
+	
+	function goRenewalCardMyPage() {
+		var renewalCardInfoURL = getRenewalCardURL() + '/dcpc/yh1/mcd/mcd01/H1MCD101S00.do';
+		window.open(renewalCardInfoURL);
+	}
+
+	
+	function goRenewalCardEvent() {
+		var renewalCardInfoURL = getRenewalCardURL() + '/dcpc/yh1/bnf/bnf02/prgevnt/H1BNF202S00.do';
+		window.open(renewalCardInfoURL);
+	}
+	
+	
+	function goRenewalCardHome() {
+		window.open(getRenewalCardURL());
+	}
+	
+	
+	function goLotteCardHome() {
+		window.open("https://www.lottecard.co.kr/app/LPCDAGC_V100.lc?wrbkEno=&bId=59052");
+	}
+	
+	function goCard(gubun) {
+		if('lt' == gubun){
+			goLotteCardHome();	//롯데카드 홈페이지
+		}else{
+			if('ci' == gubun){
+				goRenewalCardInfo();	//우리카드 리뉴얼 카드안내페이지
+			}else if('ca' == gubun) {
+				goRenewalCardApply();	//우리카드 리뉴얼 카드신청 페이지
+			}else if('cm' == gubun) {
+				goRenewalCardMyPage();	//우리카드 리뉴얼 나의카드 페이지
+			}else if('ce' == gubun) {
+				goRenewalCardEvent();	//우리카드 리뉴얼 이벤트 페이지
+			}else{
+				goRenewalCardHome();	//우리카드 리뉴얼 카드홈페이지
+			}
+		}
+	}
+	
+	
+	function woorifgLinkPop() {
+		window.open("https://www.woorifg.com/kor/company/ceo/greeting/contentsid/43/index.do","_blank");
+	}
+	
+	var _moveA = false; 
+	
+	$(function() {
+		
+		$(".site.sitemap_icon .btn-popup.ui-set-btn-popup").click(function(){
+			_moveA = true;
+		});
+	
+		$('#search_upper_btn').click(function(){
+			$('.search_2').stop().slideDown();
+			
+			var maskHeight = $(document).height();
+			var maskWidth = $(window).width();
+			var scrollPosition = 0;
+			
+			$('body').append('<div id="layermask"></div>');
+			$('#layermask').css({'width':maskWidth,'height':maskHeight,'position':'fixed','left':'0','top':'0','background':'#000','z-index':'99'});
+			$('#layermask').fadeTo("",0.5);
+			$('body').css('position','relative');
+				
+			$(window).resize(function () { 
+		        var maskHeight = $(document).height();
+		        var maskWidth = $(window).width();
+		        $('#layermask').css({'width':maskWidth,'height':maskHeight});
+			});
+		});
+		
+		$('#search_close').click(function(){
+			$('.search_2').stop().slideUp();
+			$("#layermask").hide();
+	
+		});
+		
+		$("#slides01").slidesjs({
+			play: {
+			  active: true, //슬라이드여부
+			  auto: true, //자동슬라이드
+			  interval: 10000, //슬라이드 속도
+			  swap: true,
+			  effect: "fade"
+	//		  pauseOnHover:true
+			},
+			pagination:{
+				effect: "fade"
+			},
+			effect:{
+				fade: {
+				speed: 800,
+				cressfade: true
+		  		}
+		  	},
+		  	callback:{
+				loaded: function(){
+			  	}
+		  	}
+		});
+		$("#slides01 .slidesjs-container").prepend($("#slides01 .slidesjs-navigation"));
+		$("#slides01 .slidesjs-container").prepend($("#slides01 .slidesjs-play, #slides01 .slidesjs-stop"));
+		
+		//금융상품 마우스오버
+		var link;
+		$('.cont_menu_img > li > a,.cont_menu_card_img > li > a').hover(
+			function(){
+				link = $(this).find('img').prop('src');
+				link = link.replace('.png','_over.png');
+				$(this).find('img').prop('src',link);
+				$(this).parents('li').addClass('over');
+				$(this).css({'background':'#3a8dfd','border-radius':'50%','color':'#fff'});
+
+			},function(){
+				link = $(this).find('img').prop('src');
+				link = link.replace('_over.png','.png');
+				$(this).find('img').prop('src',link);
+				$(this).parents('li').removeClass('over');
+				$(this).css({'background':'transparent','color':'#000'});
+			}
+		);
+		
+		//빠른메뉴 이벤트
+		$('li.q_btn > a').on('click',function(){
+			$(this).parents('li').toggleClass('show');	
+		});
+		$('.q_menu_list > li > a').on('click',function(){
+			$('.q_menu_list > li > a').removeClass('font-bold');
+			$(this).addClass('font-bold');
+		});
+		
+		
+	}); 
+</script>
+
+
+<script type="text/javascript">	
+	function getCookie( Name ){
+		var search = Name + "=";
+
+		if (document.cookie.length > 0){
+			var offset = document.cookie.indexOf(search);
+
+			if (offset != -1){
+				offset += search.length;
+				var end = document.cookie.indexOf(";", offset);
+				if(end == -1){
+					end = document.cookie.length;
+				}
+				return unescape(document.cookie.substring(offset, end));
+			}
+		}
+	}
+	
+	function setOpenCookie( name, value, expiredays )
+	{
+		 var today = new Date();
+		 today.setDate( today.getDate() + expiredays );	
+		 document.cookie = name + "=" + escape( value ) + "; domain=.wooribank.com; path=/; expires=" + today.toGMTString() + ";";
+		  
+	}
+</script>
+
+<style type="text/css">
+	* {font-family:'NotoSans','Noto Sans KR', sans-serif; -webkit-font-smoothing:antialiased; -moz-osx-font-smoothing:antialiased;}
+</style>
+
+
+			
+
+			<div class="content notice">		
+			</div>
+		</div>
+		<th:block th:replace="~{layouts/header :: headerFragment}"></th:block>
+		<div class="search_2" style="display:none;">
+			<div class="search_inner_cont">
+				<form  id="search" name="search" method="post" action="https://spib.wooribank.com/pib/Dream?withyou=CMCOM0007">
+					<input class="text font-c-7 mt50 font-18" type="text" style="line-height:50px; width:658px; height:50px; ime-mode:active;" name="query" title="검색어 입력" value="   검색어를 입력하세요" onfocus="this.value=''" />
+					<input class="submit" type="image" src="/img/intro/header/inner_search_icon.png" alt="검색" />
+					<div class="search_word mt25 ml50">
+						<div class="search_tit ml3">추천검색어</div>
+						<ul>
+							<li><a href="javascript:recSearch('인증서');">인증서</a></li>
+							<li><a href="javascript:recSearch('OTP');">OTP</a></li>
+							<li><a href="javascript:recSearch('주거래');">주거래</a></li>
+							<li><a href="javascript:recSearch('이체한도');">이체한도</a></li>
+							<li><a href="javascript:recSearch('자동차대출');">자동차대출</a></li>
+						</ul>
+					</div>
+				</form> 
+			</div>
+			<div class="search_inner_close" id="search_close"><a href="#none"></a></div>
+			
+		</div>
+	
+	<div id="introHome" class="renew_main">
+		<div id="introQuick">
+			<div class="bin"></div>
+		</div>
+		
+		
+	    <div class="w950 mauto position-r mt60">
+		    <div class="pop-inner no-print position-a dis-n" id="PUP01MN0100010" style="width:400px; top:590; right:0; z-index:5000; border:1px solid #20509f;"  >
+		        <div class="ly-body mauto pb0 position-r">
+			     	<img src="/img/intro/home/intropop_ceo_message.jpg" alt="우리금융그룹, 완전 민영화의 새역사, 그첫걸음을 고객님과 함께 합니다." />
+			     	<a href="" onclick="javascript:woorifgLinkPop();return false;" class="position-a" target="_blank" style="left: 50%; top: 492px; width: 160px; height: 30px; margin-left: -77px;"></a>
+							
+			    </div>
+			    <div class="pop-inner-footer pl0 pr0">
+			        <span class="mt4 fright pr25"><label for="set_today">오늘 하루 열지 않음 <input name="hide_terms" id="set_today" onclick="setOpenCookie('PUP01MN0100010', 'Y', 1);" type="radio"></label></span>
+			        <a class="cls btn-pop-close ui-set-btn-close-popup" onclick="$('#PUP01MN0100010').hide(); return false;" href="#"><span>팝업닫기</span></a>
+			    </div>
+			    <a class="close-layer btn-pop-close ui-set-btn-close-popup" herf="#close" onclick="$('#PUP01MN0100010').hide();" style="right:0; top:8px; background: url(/img/common/etc/btn_close_pop_wrap.png) no-repeat 0 0!important;">팝업닫기</a>
+		    </div>
+		 </div>
+		 		
+
+		<div class="mid_content renew_style">
+			<div class="mid_cont_key overflowh">
+				
+			    <div id="slides01" >
+					
+						<div class="slides nth1" name="crmArea" id="introCrm_02" style="background: transparent; background:#f9f4ff;">
+							
+								<a href='https://spib.wooribank.com/pib/Dream?withyou=BISVC0095'> 
+			 						<div class="img_center">
+										<img src="/img/smart/intro/INTPOT_ALL_INTRO_ROLL1/iu.png" alt="내가 원하는 성공사업의 답! 소상공인 맞춤 무료 컨설팅 받아보세요.">
+									</div>
+									<span>내가 원하는 성공사업의 답! 소상공인 맞춤 무료 컨설팅 받아보세요.</span>
+								</a>
+							
+						</div>
+					
+					
+						<div class="slides nth2" name="crmArea" id="introCrm_02" style="background: transparent; background:#bfd9f7;">
+							
+								<a href='https://spot.wooribank.com/pot/Dream?withyou=BPPBC0009&bbsMode=view&BOARD_ID=B00070&ARTICLE_ID=53503'> 
+			 						<div class="img_center">
+										<img src="/img/smart/intro/INTPOT_ALL_INTRO_ROLL2/house.png" alt="비정상거처 이주지원 버팀목대출 안내 주거취약계층의 이주를 지원하여 희망을 밝혀드립니다!">
+									</div>
+									<span>비정상거처 이주지원 버팀목대출 안내 주거취약계층의 이주를 지원하여 희망을 밝혀드립니다!</span>
+								</a>
+							
+						</div>
+					
+					
+						<div class="slides nth3" name="crmArea" id="introCrm_02" style="background: transparent; background:#FFEAEF;">
+							
+								<a href='https://spot.wooribank.com/pot/Dream?withyou=BPPBC0009&bbsMode=view&BOARD_ID=B00070&ARTICLE_ID=57945'> 
+			 						<div class="img_center">
+										<img src="/img/smart/intro/INTPOT_ALL_INTRO_ROLL3/BANNER_0.png" alt="5월 2일부터 변경되는 한도 한도제한 계좌 한도 변경실시">
+									</div>
+									<span>5월 2일부터 변경되는 한도 한도제한 계좌 한도 변경실시</span>
+								</a>
+							
+						</div>
+					
+					
+						<div class="slides nth4" name="crmArea" id="introCrm_02" style="background: transparent; background:#EDF3FD;">
+							
+								<a href='https://spib.wooribank.com/pib/Dream?withyou=my'> 
+			 						<div class="img_center">
+										<img src="/img/smart/intro/INTPOT_ALL_INTRO_ROLL4/mydata_0.jpg" alt="나의 데이터가 가치가 되는 새로운 경험">
+									</div>
+									<span>나의 데이터가 가치가 되는 새로운 경험</span>
+								</a>
+							
+						</div>
+					
+					
+					
+						<div class="slides nth6" name="crmArea" id="introCrm_02" style="background: transparent; background:#edf3fd;">
+							
+								<a href='https://spot.wooribank.com/pot/Dream?withyou=BPPBC0009&bbsMode=view&BOARD_ID=B00070&ARTICLE_ID=42918'> 
+			 						<div class="img_center">
+										<img src="/img/smart/intro/INTPOT_ALL_INTRO_ROLL6/won.png" alt="해피뱅킹 기업 기업금융을 스마트폰으로 언제 어디서나 편리하게~">
+									</div>
+									<span>우리WON뱅킹 기업 기업금융을 스마트폰으로 언제 어디서나 편리하게~</span>
+								</a>
+							
+						</div>
+					
+				</div>
+				
+			</div>
+		</div>
+	</div>
+	
+	
+	
+	
+	<div class="mid_cont_menu" id="mid_cont_menu">
+		<ul class="left_menu">
+			<li><a href="https://spib.wooribank.com/pib/Dream?withyou=PSINQ0180">다른금융<br />정보조회</a></li>
+			<li>
+				<a th:if="${session.login != null}" th:href="@{mainAccountList}">개설</a>
+				<a th:if="${session.login == null}" href="#" onclick="funcLogin()">개설</a>
+			</li>
+			<li>
+				<a th:if="${session.login != null}" th:href="@{accountSearch}">조회</a>
+				<a th:if="${session.login == null}" href="#" onclick="funcLogin()">조회</a>
+			</li>
+			<li>
+				<a th:if="${session.login != null}" th:href="@{remitMoney}">송금</a>
+				<a th:if="${session.login == null}" href="#" onclick="funcLogin()">송금</a>
+			</li>
+			<li class="q_btn">
+				<a href="#none" id="q_btn_toggle">빠른메뉴<span class="q_btn_icon"></span></a>
+				<div class="q_menu position-r" id="q_menu_toggle">
+					<div name="crmArea" id="introCrm_02" class="q_menu_inner">
+						<ul class="q_menu_list w100p clearfix top">
+							<li class="">
+								<a th:if="${session.login != null}" th:href="@{depositList}" >예금</a>
+								<a th:if="${session.login == null}" href="#" onclick="funcLogin()">예금</a>
+							</li>
+							<li>
+								<a th:href="@{savings}" th:if="${session.login != null}">적금</a>
+								<a th:if="${session.login == null}" href="#" onclick="funcLogin()">적금</a>
+							</li>
+						</ul>
+					</div>
+				</div>
+			</li>
+		</ul>
+	</div>
+	<th:block th:replace="~{layouts/footer :: footerFragment}"></th:block>
+	<form  name="boardViewFrm" action="" method="post">
+		<input type="hidden" name="BOARD_ID" value="">
+		<input type="hidden" name="ARTICLE_ID" value="">
+		<input type="hidden" name="bbsMode" value="view">
+		<input type="hidden" name="ORDER_TYPE" value="desc">
+	</form>
+
+
+<script type="text/javascript">
+//<![CDATA[ 
+
+function RemoveDomainCookie(name) {
+	 
+	var value = "";
+	var today = new Date();
+	today.setDate( today.getDate() - 1 );
+	 
+	document.cookie = name + "=" + escape( value ) + "; domain=.wooribank.com; path=/; expires=" + today.toGMTString() + ";";
+	  
+}
+
+function funcLogin(){
+	alert('로그인 하시오!!');
+}
+
+RemoveDomainCookie("SSO_JSESSION");
+//]]>
+</script>
+</body>
+</html>

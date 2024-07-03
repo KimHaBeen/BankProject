@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+<link rel="stylesheet" href="style/register/makeAccount.css">
+</head>
+<body>
+<th:block th:replace="layouts/headerManager :: headerManagerFragment"></th:block>
+	<p th:text=" '상품명: ' + ${savings.deposit_name} "></p>
+	<p th:text=" '가입 기간: ' + ${savings.create_date} "></p>
+	<p th:text=" '최소 가입 금액: '  + ${savings.min_money} + '원' "></p>
+	<p th:text=" '이율: ' + ${savings.rate} "></p>
+<th:block th:replace="layouts/footer :: footerFragment"></th:block>
+</body>
+</html>

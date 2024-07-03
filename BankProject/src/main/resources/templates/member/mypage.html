@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+<link rel="stylesheet" href="style/register/makeAccount.css">
+<link rel="stylesheet" href="style/register/mypage.css">
+</head>
+<body>
+<th:block th:replace="layouts/header :: headerFragment"></th:block>
+	<h1 th:text="${member.name}+' 어서와'"></h1>
+	<div class="mypage">
+		<div class="mypage__item">
+			<span>이름 : </span>
+			<span th:text="${member.name}"></span>
+		</div>
+		<div class="mypage__item">
+			<span>주민번호 : </span>
+			<span th:text="${member.rrn}"></span>
+		</div>
+		<div class="mypage__item">
+			<span>핸드폰 번호 : </span>
+			<span th:text="${member.phone_num}"></span>
+		</div>
+		<div class="mypage__item">
+			<span>주소 : </span>
+			<span th:text="${member.address}"></span>
+		</div>
+	</div>
+	<br>
+	<h1>등록된 계좌정보</h1>
+	<div class="tableSection">
+		<table class = "accountList_table">
+		</table>
+	</div>
+	<div class="account_info">
+	</div>
+	<form action="delete_ck">
+			<button type="submit" id="deleteMember">회원탈퇴</button>
+	</form>
+	<th:block th:replace="layouts/footer :: footerFragment"></th:block>
+	<script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+	<script th:inline="javascript">
+
+	
+	function formatNumber(number) {
+	    	return number.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+				 }
+	
+		const tableList = document.querySelector("#tableList");
+		const account_info = document.querySelector(".account_info");
+		const accountList_table = document.querySelector(".accountList_table");
+		
+		let newTdTagMoney;
+		let newTdTagDate;
+		let newtdTag;
+		let a_product;
+		
+		let newtrTag;
+		
+		 function formatDate(dateString) {
+		        const date = new Date(dateString);
+		        const year = date.getFullYear();
+		        const month = ('0' + (date.getMonth() + 1)).slice(-2); // 월은 0부터 시작하므로 +1을 해준 후 두 자리로 포맷팅
+		        const day = ('0' + date.getDate()).slice(-2); // 일을 두 자리로 포맷팅
+		        return year + '-' + month + '-' + day;
+		        
+		    }
+		 let newTrTag1 = document.createElement('tr');
+		
+		
+		let newThTag1 = document.createElement('th');
+		let newThTag2 = document.createElement('th');
+		let newThTag3 = document.createElement('th');
+		let newThTag4 = document.createElement('th');
+		
+		newThTag1.innerText = '계좌번호';
+		newThTag2.innerText = '상품유형';
+		newThTag3.innerText = '총액';
+		newThTag4.innerText = "개설날짜"
+		
+		newTrTag1.appendChild(newThTag1);
+		newTrTag1.appendChild(newThTag2);
+		newTrTag1.appendChild(newThTag3);
+		newTrTag1.appendChild(newThTag4);
+		
+		accountList_table.appendChild(newTrTag1);
+		
+		newtdTag = document.createElement('td');
+		newTdTagMoney = document.createElement('td');
+		newTdTagDate = document.createElement('td');
+		
+		let accountList = [[${account}]];
+		for(item of accountList){
+			newtrTag = document.createElement('tr');
+			a_product = document.createElement("a");
+			newtdTag = document.createElement('td');
+			newTdTagMoney = document.createElement('td');
+			newTdTagDate = document.createElement('td');
+			
+			newtdTag.innerText = item.account_num;
+			newTdTagMoney.innerText = `${formatNumber(item.total)}원`;
+			newTdTagDate.innerText = formatDate(item.reg_date);
+			
+			let num;
+						
+			if(item.product_num !== null){
+				//"@{./Termination(product_num = num)}"
+				if(item.product_num.substr(0,2) == '#1'){
+					a_product.innerText = '일반';
+					a_product.href="#";
+				}
+				else if(item.product_num.substr(0,2) == '#2'){
+					a_product.innerText = '예금';
+					num = item.product_num.substring(1);
+					a_product.href="./Termination?product_num=%23"+num + "&account_num=" + item.account_num;
+				}
+				else if(item.product_num.substr(0,2) == '#3'){
+					a_product.innerText = '적금';
+					num = item.product_num.substring(1);
+					a_product.href="./Termination?product_num=%23"+num+"&account_num=" + item.account_num;
+				}
+			}		
+			
+			newtrTag.appendChild(newtdTag);
+			newtrTag.appendChild(a_product);
+			newtrTag.appendChild(newTdTagMoney);
+			newtrTag.appendChild(newTdTagDate);
+			
+			accountList_table.appendChild(newtrTag);
+			
+		}
+		
+		$('#deleteMember').click(function(event) {
+			event.preventDefault();
+			fetch('/delete_ck', {
+				method: 'post'
+			}).then(response => response.json())
+			.then(data => {
+				if(data === 0) {
+					let pw = prompt('회원 탈퇴를 진행하시려면 비밀번호를 입력하세요.');
+					if (pw !== null) {
+						fetch('/pw_ck', {
+							method: 'post'
+							, headers: {
+		                        'Content-Type': 'application/json'
+		                    }
+						,body:  JSON.stringify({ pw: pw })
+						})
+						.then(response => response.json())
+						.then(data => { 
+								if(data === 1) {
+									alert('탈퇴 되었습니다.')
+									window.location.href='/'
+							}else {
+								alert('비밀번호가 틀렸습니다.')
+									console.log(data, typeof data);
+							}
+						}).catch(error => {
+							console.log('error: ', error)
+						})
+					}else { 
+						alert('취소 되었습니다.')
+					}
+				}else {
+					alert('계좌를 모두 해지하세요.')
+				}
+			})
+			.catch(error => {
+				console.log('error : ', error);
+			})
+		})
+		
+			
+		
+		
+		
+	</script>
+</body>
+</html>

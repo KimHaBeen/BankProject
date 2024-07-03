@@ -1,0 +1,25 @@
+@charset "UTF-8";
+.register_login_section
+{
+	width: 180px;
+	display: flex;
+	justify-content: space-around;
+	position: absolute;
+	left: 1030px;
+	top: 20px;
+	font-weight: bold;
+}
+.logout{
+	position: absolute;
+	left: 850px;
+
+}
+.userAndlogout{
+	width: 200px;
+	display: flex;
+	justify-content: space-around;
+	position: absolute;
+	left: 1030px;
+	bottom: 30px;
+	font-weight: bold;
+}

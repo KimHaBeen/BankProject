@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+<link rel="stylesheet" href="style/register/register.css">
+</head>
+<body>
+<th:block th:replace="layouts/header :: headerFragment"></th:block>
+	<h1>로그인 페이지</h1>
+	<select id="login_select" class="select">
+		<option name="user" selected>일반유저</option>
+		<option name="manager">관리자</option>
+	</select>
+	<div class="user_login">
+		<form action="loginController" method="post">
+			<input type="text" id="loginID" name = "id" placeholder="ID 입력">
+			<br>
+			<input type="password" id="loginPW" name = "pw" placeholder="PW 입력">
+			<br>
+			<div class="registerBtn">
+				<button type="submit" class="custom-btn btn-10" onclick="funcLogin()">일반유저</button>
+				<button type="button" onclick="location.href='/'" class="back custom-btn btn-10">뒤로가기</button>
+			</div>
+		</form>
+	</div>
+	<div class="manager_login register_display">
+		<form action="mangerLoginController" method="post">
+			<input type="text" id="managerID" name = "manager_id" placeholder="ID 입력" required="required">
+			<br>
+			<input type="password" id="managerPW" name = "manager_pw" placeholder="PW 입력" required="required">
+			<br>
+			<div class="registerBtn">
+				<button type="submit" class="custom-btn btn-10" onclick="funcManagerLogin()">관리자</button>
+				<button type="button" onclick="location.href='/'" class="back custom-btn btn-10">뒤로가기</button>
+			</div>
+		</form>
+	</div>
+	 		
+	 		<th:block th:replace="layouts/footer :: footerFragment"></th:block>
+	<script th:inline="javascript">
+		const login_select = document.querySelector("#login_select");
+		const user_login = document.querySelector(".user_login");
+		const manager_login = document.querySelector(".manager_login");
+		const loginID = document.querySelector("#loginID");
+		const loginPW = document.querySelector("#loginPW");
+		const managerID = document.querySelector("#managerID");
+		const managerPW = document.querySelector("managerPW");
+		
+		const memberId = [[${memberId}]];
+		const memberPw = [[${memberPw}]];
+		const managerId = [[${managerId}]];
+		const managerPw = [[${managerPw}]];
+		
+		const funcSelect = () =>{
+			if(login_select.value === '관리자'){
+				user_login.classList.toggle('register_display');
+				manager_login.classList.toggle('register_display');
+			}
+			else{
+				user_login.classList.toggle('register_display');
+				manager_login.classList.toggle('register_display');
+			}
+		}
+		const funcLogin = () =>{
+			
+			let loginCk = false;
+			for(let i = 0; i <  memberId.length; i++){
+				if(memberId[i] === loginID.value && memberPw[i] === loginPW.value){
+					loginCk = true	
+				}
+			}
+			
+			if(!loginCk){
+				alert('아이디 혹은 비밀번호가 일치하지 않습니다.');
+			}
+			else{
+				alert("로그인 성공!!!");
+			}
+		}
+		
+		const funcManagerLogin = () => {
+			
+			let loginCk = false;
+			for(let i = 0; i <  managerId.length; i++){
+				if(managerId[i] ===  managerID.value && managerPw[i] ===  managerPW.value){
+					loginCk = true;	
+				}
+			}
+			
+			if(!loginCk){
+				console.log(loginID.value, loginPW.value)
+				alert('아이디 혹은 비밀번호가 일치하지 않습니다.');
+			}
+			else{
+				alert("로그인 성공!!!");
+			}
+			
+			
+		}
+		
+		login_select.addEventListener('change', funcSelect);
+	</script>
+</body>
+</html>

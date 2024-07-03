@@ -1,0 +1,33 @@
+<th:block th:fragment="headerManagerFragment">
+
+<link  rel="stylesheet" href="css/base.css" type="text/css" />
+<link  rel="stylesheet" href="css/intro_new.css" type="text/css" />
+<!--[if gt IE 9]><!-->
+<link  rel="stylesheet" href="css/intro.trans.css" type="text/css" />
+<link  rel="stylesheet" href="css/import.css" type="text/css" />
+<link rel="stylesheet" href="css/position/position.css" type="text/css" />
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;500;700&display=swap" rel="stylesheet" />
+<link  rel="stylesheet" href="https://simg.wooribank.com/css/onetouch/com/lib/swiper.min.css?1480604402000" type="text/css" />
+<div id="introHeader" class="re_new"></div>
+	<div class="content h66"  name="crmArea" id="introCrm_01">
+		<h1 class="absolute">
+			<a href="#">
+				<img  alt="해피은행" src="img/intro/header/h1_01.png"/>
+			</a>
+		</h1>
+		<div class="manager__header">
+			<span
+			align = "left"
+			th:text="${session.managername} + ' 매니저님' ">
+			</span>
+			<a href="managerLogout">&nbsp;&nbsp;&nbsp;&nbsp;로그아웃</a>
+		</div>
+<div class="userAndlogout">
+	
+	
+</div>				
+	<div class="content notice">		
+	</div>
+</div>
+<hr>
+</th:block>

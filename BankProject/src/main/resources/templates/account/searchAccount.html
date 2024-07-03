@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+<link rel="stylesheet" href="style/register/makeAccount.css">
+</head>
+<body>
+<th:block th:replace="~{layouts/header :: headerFragment}"></th:block>
+	<h1 class="title">조회</h1>
+		<div class="select__total">
+		<select id="account_select">
+			<option value="none" disabled selected> === 선택 === </option>
+			<option class="account_option" th:each="list : ${accountNum}" th:text="${list}" id="account"></option>
+		</select>
+		<br>
+		<span class="totalMoney"></span>
+		</div>
+		<div class="tableSection">
+			<table class = "accountList_table">
+			</table>
+		</div>
+
+		<th:block th:replace="~{layouts/footer :: footerFragment}"></th:block>
+	
+	<script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+	<script th:inline="javascript">
+		//var userVal = document.getElementById("mySelect1").selectedIndex;		
+	
+		const accountTotal = [[${accountTotal}]];
+		
+		const plusList = [[${plusList}]];
+		const remitList = [[${remitList}]];
+		console.log(plusList, remitList)
+		
+		let totalList = plusList.concat(remitList);
+		let tempTotal = 0;
+		console.log('정렬전 >>> ',totalList);
+		let totalSorted = totalList.sort((b, a) => {
+			return new Date(a.exchage_date) - new Date(b.exchage_date)
+		});
+		
+		console.log('>>>>',totalSorted);
+		
+		
+		const account_select = document.querySelector("#account_select");
+		const total = document.querySelector(".totalMoney");
+		const accountList_table = document.querySelector(".accountList_table");
+		
+		const funcSelectOption = () => {
+			let newTdTagMoney;
+			let newTdTagDate;
+			let newtdTag;
+			let newtrTag;
+			let selectIndex = account_select.selectedIndex;
+			
+			total.innerText = `총 잔액 : ${formatNumber(accountTotal[selectIndex - 1])}원`;
+			
+			tempTotal = formatNumber(accountTotal[selectIndex - 1]);
+			let tempTotal2 = tempTotal.replace(/,/g,""); 
+			let newTempTotal =parseInt(tempTotal2);
+			
+			console.log('>>>', newTempTotal);
+			if(document.querySelectorAll("tr").length !== 0){
+
+				accountList_table.replaceChildren();
+			}
+			
+			let newTrTag1 = document.createElement('tr');
+			
+			let newThTag1 = document.createElement('th');
+			let newThTag2 = document.createElement('th');
+			let newThTag3 = document.createElement('th');
+			let newThTag4 = document.createElement('th');
+			
+			newThTag1.innerText = '입금 / 출금';
+			newThTag2.innerText = '거래금액';
+			newThTag3.innerText = '거래일자';
+			newThTag4.innerText = '거래 후 금액';
+			
+			newTrTag1.appendChild(newThTag1);
+			newTrTag1.appendChild(newThTag2);
+			newTrTag1.appendChild(newThTag4);
+			newTrTag1.appendChild(newThTag3);
+			
+			accountList_table.appendChild(newTrTag1);
+			
+			let afterMoney = 0;
+			console.log('afterMoney : ', afterMoney);
+			
+			let moneyList = [];
+			let temp = 0;
+			for(let i = totalList.length - 1; i >= 0; i--){
+				if(totalList[i].account_num === account_select.value){
+					if(totalList[i].exchange_sign === '+'){
+						
+						temp += parseInt(totalList[i].exchange_money);
+					}else{
+						temp -= parseInt(totalList[i].exchange_money);
+					}
+					moneyList.push(temp);
+				}
+			}
+			console.log("이거맞냐 >>>", moneyList);
+			let reverseList = moneyList.reverse();
+			console.log('리버스 댐 >>? ', reverseList);
+			let cnt = 0;
+			for(let i = 0; i < totalSorted.length; i++){
+				if(totalSorted[i].account_num === account_select.value){
+					
+					newtrTag = document.createElement('tr');
+					
+					if(totalSorted[i].exchange_sign === '+'){
+						newtdTag = document.createElement('td');
+						newtdTag.innerText = '입금';
+						afterMoney = reverseList[cnt];							
+					}
+					else{
+						newtdTag = document.createElement('td');
+						newtdTag.innerText = '출금';
+						afterMoney = reverseList[cnt];
+					}
+					
+					let day = totalSorted[i].exchage_date;
+					
+					newTdTagMoney = document.createElement('td');
+					newTdTagDate = document.createElement('td');
+					newTdTagAfterMoney = document.createElement('td');
+					
+					 
+					newTdTagAfterMoney.innerText = formatNumber(afterMoney);
+					newTdTagMoney.innerText = formatNumber(totalSorted[i].exchange_money);
+					newTdTagDate.innerText = day.substr(0, 11);
+					
+					newtrTag.appendChild(newtdTag);
+					newtrTag.appendChild(newTdTagMoney);
+					newtrTag.appendChild(newTdTagAfterMoney);
+					newtrTag.appendChild(newTdTagDate);	
+					
+					accountList_table.appendChild(newtrTag);
+					
+				cnt++;
+				}
+			}
+		}
+		account_select.addEventListener("change", funcSelectOption);
+		
+			function formatNumber(number) {
+		        	return number.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+		   			 }
+			/* 하이픈
+	        function formatAccountNumber(account) {
+	            return account.replace(/^(\d)(\d{4})(\d{4})$/, '$1-$2-$3');
+	        }
+		
+        $(document).ready(function() {
+            // Apply formatting to each account option
+            $('#account_select option').each(function() {
+            	console.log($('#account_select'))
+                const account = $(this).text();
+            	console.log(account)
+                const formattedAccount = formatAccountNumber(account);
+                $(this).text(formattedAccount);
+            });
+        });*/
+		
+	</script>
+</body>
+</html>

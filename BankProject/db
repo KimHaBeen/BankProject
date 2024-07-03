@@ -1,0 +1,150 @@
+CREATE TABLE member(
+	id varchar2(100) PRIMARY KEY,
+	pw varchar2(100) NOT NULL,
+	name varchar2(100) NOT NULL,
+	rrn varchar2(15) NOT NULL,
+	phone_num varchar2(100) NOT NULL,
+	address varchar2(100) NOT NULL
+);
+
+CREATE TABLE employee(
+	EMPLOYEE_NUM number(6) PRIMARY KEY,
+	EMPLOYEE_NAME varchar2(10) NOT NULL,
+	EMPLOYEE_RRN varchar2(15),
+	DEPARTMENT varchar2(10)
+);
+
+
+CREATE TABLE manager(
+	MANAGER_ID varchar2(100) PRIMARY KEY,
+	MANAGER_PW varchar2(100),
+	EMPLOYEE_NUM number(6),
+	foreign KEY (EMPLOYEE_NUM) REFERENCES employee(EMPLOYEE_NUM)
+);
+
+CREATE TABLE account (
+	account_num	varchar2(12) PRIMARY KEY,
+	id varchar2(100),
+	dormant char(1) CONSTRAINT boolean_ck CHECK(dormant IN (0,1)),
+	total number(10),
+	FOREIGN KEY (id) REFERENCES member(id)
+);
+
+CREATE SEQUENCE remit_seq
+		INCREMENT BY 1
+		START WITH 0
+		MINVALUE 0
+		nocache
+		noorder;
+
+CREATE TABLE remit (
+	num				NUMBER PRIMARY KEY,
+	remit_sign 		varchar2(2) DEFAULT '-',
+	account_num 	varchar2(12) NOT NULL,
+	remit_account	varchar(12) NOT NULL,
+	remit_text		varchar(12) NOT NULL,
+	remit_money		NUMBER(10)	NOT NULL,
+	remit_date		DATE DEFAULT sysdate,
+	FOREIGN KEY (account_num) REFERENCES account(account_num)
+);
+
+CREATE TABLE plus(
+	num NUMBER PRIMARY KEY,
+	PLUS_SIGN	VARCHAR2(2) DEFAULT '+',
+	ACCOUNT_NUM	VARCHAR2(100),
+	PLUS_TEXT	VARCHAR2(8),
+	PLUS_MONEY	NUMBER(10),
+	PLUS_DATE	DATE DEFAULT sysdate,
+	FOREIGN KEY(ACCOUNT_NUM) REFERENCES account(account_num)
+);
+
+CREATE SEQUENCE plus_seq
+	INCREMENT BY 1
+	START WITH 0
+	MINVALUE 0
+	nocache
+	noorder;
+	
+여기 두개	
+CREATE TABLE deposit_manager(
+	DEPOSIT_NUM	VARCHAR2(6) PRIMARY KEY,
+	DEPOSIT_NAME VARCHAR2(50) NOT NULL,
+	CREATE_DATE VARCHAR2(10) NOT NULL,
+	MIN_MONEY VARCHAR2(50), 
+	RATE varchar2(5) NOT null
+);
+CREATE TABLE deposit_product(
+	ACCOUNT_NUM	VARCHAR2(100) PRIMARY KEY,
+	DEPOSIT_NUM	VARCHAR2(6),
+	ID VARCHAR2(100),
+	REG_DATE DATE DEFAULT sysdate,
+	TOTAL VARCHAR2(10),
+	FOREIGN KEY (DEPOSIT_NUM) REFERENCES deposit_manager(deposit_num)
+);
+
+------------------------------------------
+CREATE TABLE savings_manager (
+	savings_num		varchar2(6) PRIMARY KEY,
+	savings_name	varchar2(50) NOT NULL,
+	create_date		varchar2(5) NOT NULL,
+	min_money		number(10) NOT NULL,
+	rate 			varchar2(3) NOT NULL,
+	fr_or_in		varchar2(2) NOT NULL
+);
+
+CREATE TABLE savings_product (
+	account_num		varchar2(12) PRIMARY KEY,
+	id				varchar2(100),
+	savings_num		varchar2(6),
+	reg_date		DATE,
+	total			number(10),
+	plus_money		number(10),
+	plus_date		DATE,
+	FOREIGN KEY(id) REFERENCES member(id),
+	FOREIGN KEY(savings_num) REFERENCES savings_manager(savings_num)	
+);
+
+ALTER TABLE remit RENAME COLUMN remit_date TO exchage_date;
+ALTER TABLE plus RENAME COLUMN plus_date TO exchage_date;
+ALTER TABLE remit RENAME COLUMN remit_sign TO exchange_sign;
+ALTER TABLE plus RENAME COLUMN plus_sign TO exchange_sign;
+ALTER TABLE remit RENAME COLUMN remit_money TO exchange_money;
+ALTER TABLE plus RENAME COLUMN plus_money TO exchange_money;
+
+-----------------------------------------
+여기만들기
+CREATE TABLE product_manager(
+	PRODUCT_NUM	VARCHAR2(5) PRIMARY key,
+	DEPOSIT_NAME VARCHAR2(50),
+	CREATE_DATE	NUMBER(2),
+	MIN_MONEY NUMBER(10),
+	RATE VARCHAR2(3)
+);
+
+--------------------6/3 새로 추가------------------
+DROP TABLE ACCOUNT CASCADE CONSTRAINTS;
+
+CREATE TABLE ACCOUNT(
+	account_num	varchar2(12)	PRIMARY KEY,
+	id 			varchar2(100),
+	product_num	varchar2(5),
+	account_pw	NUMBER(6) NOT NULL,
+	reg_date 	DATE DEFAULT sysdate,
+	total 		NUMBER(10) NOT NULL,
+	dormant_date	number(1) DEFAULT 0,
+	FOREIGN KEY (id) REFERENCES member(id),
+	FOREIGN KEY (product_num) REFERENCES product_manager(product_num)
+);
+
+------------------6/4 새로추가 ---------------------
+ALTER TABLE REMIT ADD CONSTRAINT foreignAccount FOREIGN KEY(account_num) REFERENCES ACCOUNT(ACCOUNT_NUM); 
+ALTER TABLE PLUS  ADD CONSTRAINT foreignPlus FOREIGN KEY(account_num) REFERENCES ACCOUNT(ACCOUNT_NUM);
+--외래키 지정해주는거임 remit안에 값 있으면 다 지우고 해야댐
+
+------------------6/5 새로추가 ---------------------
+ALTER TABLE HR.PLUS MODIFY PLUS_TEXT VARCHAR2(100);
+--plus테이블에 text값 modify함
+------------------6/11 새로추가 ---------------------
+ALTER TABLE account add product_money Number(20) DEFAULT 0;
+
+

@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>여기는 적금</title>
+<link rel="stylesheet" href="style/register/makeAccount.css">
+<link rel="stylesheet" href="style/admin/admin.css">
+</head>
+<body>
+<th:block th:replace="~{layouts/header :: headerFragment}"></th:block>
+	<div class="product__items">
+		<form action="joinSavings" method="post" id = "savingsForm">
+			상품명 <input th:value= " ${savings.deposit_name}" readonly></input> <br>
+			이율 <input th:value=" ${savings.rate} " readonly></input><br>
+			가입 기간 <input th:value=" ${savings.create_date} " readonly></input> <br>
+			최소 가입 금액 <input th:value="${#numbers.formatInteger(savings.min_money, 3, 'COMMA')}+'원'" readonly></input> <br>
+			<button type="submit" class="submit" id="submit" style="margin-bottom: 30px;">가입하기</button>
+		</form>
+	</div>
+	<th:block th:replace="~{layouts/footer :: footerFragment}"></th:block>
+	<script src="http://code.jquery.com/jquery-3.7.1.min.js"></script>
+	<script th:inline="javascript">
+      
+		$('#submit').click(function() {
+			fetch('/account_ckeck', {
+				method: 'post'
+			}).then(response => response.json())
+				.then(data => {
+					console.log(data);
+					if(data === 0) {
+						alert('주거래 통장을 먼저 가입하세요.');
+					}else {
+						event.preventDefault = false;
+					}
+				})
+				.catch(error => {
+					console.error('Error: ', error);
+				})
+		})
+	</script>
+</body>
+</html>

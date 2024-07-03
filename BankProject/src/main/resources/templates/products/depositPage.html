@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+<link rel="stylesheet" href="style/register/makeAccount.css">
+<link rel="stylesheet" href="style/admin/admin.css">
+</head>
+<body>
+<th:block th:replace="~{layouts/header :: headerFragment}"></th:block>
+   <h1 style="margin-bottom: 15px;">예금</h1>
+	
+   <form action="depositController" method="post" id="ck">
+	   <input name="product_num" th:value="${deposit.product_num}" type="hidden">
+	   <input type="hidden" name="id" th:value="${session.login.id}">
+   	   <div class="product__items" style="height: 700px; position:relative; bottom: 50px;">
+	   <div class="product__name product__common" style="width: 380px; border-bottom: 1px solid #DDDFE1;">
+	   	<span>계좌선택 : </span>
+	      <select id="account_select" th:name="account_num" required style="position: relative; top: 20px; margin-right: 5px; ">
+	         <option value="none" selected disabled> === 선택 === </option>
+	         <option class="account_option" th:each="list : ${accountNum}" th:text="${list}" th:name="account_num"></option>
+	      </select>
+	     
+	      <span class="total"></span>
+	   </div>
+	      <div class="product__name product__common" style="width: 380px; border-bottom: 1px solid #DDDFE1;" >
+	   		 <span> 상품이름 : </span>
+	         <input type="text" th:field="${deposit.deposit_name}" name="deposit_name" style="outline: none; border: none; width: 80px;">
+	      </div>
+	      <div class="product_rate product__common" style="width: 380px; border-bottom: 1px solid #DDDFE1;">
+	        <span>금리 : </span>
+			<span th:text="${deposit.rate} + '%'"></span>
+	      </div>
+	     <div class="product__date product__common" style="width: 380px; border-bottom: 1px solid #DDDFE1;">
+	     <span>기간 : </span>
+			<span th:text="${deposit.create_date} + '년'" ></span>
+	     </div>
+	     <div class="product__date product__common" style="width: 380px; border-bottom: 1px solid #DDDFE1;">
+	      <span>가입금액 : </span>
+	      <input type="text" id="total" name="total" class="myMoney" th:placeholder="'최소 가입금액 '+${#numbers.formatInteger(deposit.min_money, 3, 'COMMA')}+'원'" required style="outline: none">
+	       </div>
+	       <div class="product__date product__common" style="width: 380px; border-bottom: 1px solid #DDDFE1;">
+	      <span>
+	         <label for="account_num">계좌번호 : </label>
+	      </span>
+	      <span>
+	         <input type="text" name="proAccount_num" id="account" readonly style="outline: none; width: 280px;">
+	      </span>
+	      </div>
+	      <div class="product__date product__common" style="width: 380px; border-bottom: 1px solid #DDDFE1;">  
+	      <span>
+	         <label for="account_pw">비밀번호 : </label>
+	      </span>
+	      <span>
+	         <input type="password" name="account_pw" id="account_pw" required style="outline: none; width: 280px;">
+	      </span>
+	      </div>
+	      <br>   
+	      <button type="submit" class="depositBtn submit">가입하기</button>
+       </div>
+   </form>
+  
+   <th:block th:replace="~{layouts/footer :: footerFragment}"></th:block>
+   <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+   <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.inputmask/5.0.6/jquery.inputmask.min.js"></script>
+   <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.19.3/jquery.validate.min.js"></script>
+   <script th:inline="javascript">
+      let fix = 8;
+      
+      let accountnum = '';
+      for(let i = 0; i < 8; i++){
+         accountnum += Math.floor(Math.random()*10);
+      }
+      const account = `${fix}${accountnum}`;
+      document.getElementById('account').value = account;
+   
+      const accountTotal = [[${accountTotal}]];
+      const accountPW = [[${accountPW}]];
+      const depositBtn = document.querySelector(".depositBtn");
+      const account_select = document.querySelector("#account_select");
+      
+      let pwCk;
+      let myMoney = document.querySelector(".myMoney");
+      let total = document.querySelector(".total");
+      let totalMoney;
+      let mCk = false;
+	
+      function formatAccountNumber(account) {
+          return account.replace(/^(\d)(\d{4})(\d{4})$/, '$1-$2-$3');
+      }
+		  
+      $(document).ready(function() {
+          $('#total').on('keyup', () => {
+             let value = $('#total').val().replace(/,/g, '');
+             if (!isNaN(value) && value.trim() !== "") {
+                    value = parseInt(value, 10).toLocaleString('ko-KR');
+                }
+                $('#total').val(value);
+            });
+          $('#account').inputmask('9-9999-9999', { placeholder: "#" });
+          
+	      $('#account_select option').each(function() {
+		      	console.log($('#account_select'))
+		          const account = $(this).text();
+		      	console.log(account)
+		          const formattedAccount = formatAccountNumber(account);
+		          $(this).text(formattedAccount);
+		      });
+		  });
+
+      
+      function moneyCk(){
+         mCk = false;
+         let account_pw = Number(prompt('계좌 비밀번호 입력'));
+      
+         let newMoney = myMoney.value.replace(/,/g, '');
+         if(Number(newMoney) > Number(totalMoney)){
+            alert('금액 초과!!!');
+            return mCk;
+         }
+         else if(pwCk != account_pw){
+            alert('비밀번호가 다릅니다.');
+            return mCk;
+         }
+         else{
+        	
+            mCk = true;
+            return mCk;
+         }
+         
+      }
+      
+      const formatNumber = (number) => {
+  	   	 return number.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+  		};
+      const funcChange = () =>{
+         let selectIndex = account_select.selectedIndex;
+         totalMoney = accountTotal[selectIndex - 1];
+         console.log(totalMoney);
+         pwCk = accountPW[selectIndex - 1];
+         total.innerText = `총 잔액 : ${formatNumber(accountTotal[selectIndex - 1])}원`;
+      }
+      
+      account_select.addEventListener('change', funcChange);
+      
+      
+      const productCK = $('#ck');
+         productCK.validate({
+            rules: {
+               account_pw: {
+                  required: true,
+                  rangelength: [6,6]
+               }
+            },
+            messages: {
+               account_pw: {
+                  required: '비밀번호를 입력해 주세요.',
+                  rangelength: '비밀번호는 6자리 입니다.'
+               }
+            },
+            success: function(input, element) {
+               var id = element.id + '-error';
+               console.log('input: ', input, 'element: ',element, 'id: ', id, 'element.id',element.id)
+               $('#' + id).remove();
+            },
+               submitHandler: function(form) {
+                   if (moneyCk()) {
+                       form.submit();
+                   }
+               }
+         });
+      
+
+   </script>
+</body>
+</html>

@@ -1,0 +1,245 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+<link rel="stylesheet" href="style/register/register.css">
+</head>
+<body>
+<th:block th:replace="layouts/header :: headerFragment"></th:block>
+
+	<h1 class="registerTitle">회원가입 페이지</h1>
+	<select id="register__select" class="select">
+		<option name="user" selected>일반유저</option>
+		<option name="manager">관리자</option>
+	</select>
+	<div class="user__register">
+		<form action="register_Account" method="post" class="form__input">
+			<input type="text" id="registerid" name="id" placeholder="아이디 입력" required="required">
+			<button type="button" id="idDuplicationBtn" class="custom-btn btn-1">중복확인</button>
+			<span class="idCk"></span>
+			<br>
+			<input type="password" id="registerPw" name="pw" placeholder="비밀번호 입력" required="required">
+			<br>
+			<input type="password" id="registerPwCk"  placeholder="비밀번호 확인" required="required">
+			<span class="pwCk"></span>
+			<br>
+			<input type="text" name="name" placeholder="이름 입력" required="required">
+			
+			<br>
+			<input type="text" name="rrn" id="rrn" placeholder="주민번호 입력" required="required">
+			<br>
+			<input type="text" oninput="oninputPhone(this)" name="phone_num" placeholder="핸드폰번호 입력" required="required">
+			<br>
+			<input type="text" name="address" placeholder="주소 입력" required="required">
+			<br>
+			<div class="registerBtn">
+			<button type="submit" class="custom-btn btn-10" onclick = "return id_duplicationCk()">회원가입</button>
+			<button type="reset" class="custom-btn btn-10">리셋하기</button>
+			<button type="button" class="custom-btn btn-10" onclick="location.href='/'">뒤로가기</button>
+			</div>
+		</form>
+	</div>
+	<div class="manager__register register_display">
+		<form action="manager_Account" method="post">
+			<input type="text" id="managerId" name="manager_id" placeholder="관리자 ID" required="required">
+			<span class="managerIdCk"></span>
+			<br>
+			<input type="password" id="managerPw" name="manager_pw" placeholder="관리자 PW" required="required">
+			<br>
+			<input type="password" id="managerPwCk" name="manager_pwCk" placeholder="관리자 PW확인" required="required">
+			<span class="managerPwCk_text"></span>
+			<br>
+			<input type="text" id="employee_num" name="employee_num" placeholder="사원번호" required="required">
+			<br>
+			<div class="registerBtn">
+			<button type="submit" class="custom-btn btn-10" onclick="funcManagerSubmit()">회원가입</button>
+			<button type="reset" class="custom-btn btn-10">리셋하기</button>
+			<button type="button" class="custom-btn btn-10" onclick="location.href='/'">뒤로가기</button>
+			</div>
+		</form>
+	</div>
+	<th:block th:replace="layouts/footer :: footerFragment"></th:block>
+	<script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+	<script th:inline="javascript">
+		
+		let idDuplication = true;
+		
+		const registerid = document.querySelector("#registerid");
+		const idCk = document.querySelector(".idCk");
+		const registerPw = document.querySelector("#registerPw");
+		const registerPwCk = document.querySelector("#registerPwCk");
+		const pwCk = document.querySelector(".pwCk");
+		const register__select = document.querySelector("#register__select");
+		const user__register = document.querySelector(".user__register");
+		const manager__register = document.querySelector(".manager__register");
+		const managerPw = document.querySelector("#managerPw");
+		const managerPwCk = document.querySelector("#managerPwCk");
+		const managerPwCk_text = document.querySelector(".managerPwCk_text");
+		const managerId = document.querySelector("#managerId");
+		const managerIdCk = document.querySelector(".managerIdCk");
+		const employee_num = document.querySelector("#employee_num");
+	
+		const employeeNum = [[${employeeNum}]];
+		const member_id = [[${member_id}]];
+		
+		var regId = /^[A-Za-z0-9]+$/g;
+		
+		const funcIdCk = () =>{
+			idDuplication = true;
+			if(registerid.value.length <= 4){
+				registerid.value = '';
+				idCk.innerText = '아이디는 5글자 이상입니다르릉';
+			}
+			else if(!regId.test(registerid.value)){
+				registerid.value = '';
+				idCk.innerText = '아이디는 한글이 안됩니다.';
+			}
+			else{
+				idCk.innerText = '';
+			}
+		}
+		
+		const funcPwCk = () =>{
+			if(!(registerPw.value === registerPwCk.value)){
+				pwCk.innerText = '비밀번호가 다릅니다!!';
+				registerPw.value = '';
+				registerPwCk.value= '';
+			}
+			else{
+				pwCk.innerText = '';
+			}
+		}
+		
+		const funcRegisterCk = () =>{
+			if(register__select.value === '관리자'){
+				user__register.classList.toggle('register_display');
+				manager__register.classList.toggle('register_display');
+			}
+			else{
+				user__register.classList.toggle('register_display');
+				manager__register.classList.toggle('register_display');
+			}
+		}
+		
+		const funcManagerCk = () =>{
+			if(!(managerPw.value === managerPwCk.value)){
+				managerPwCk_text.innerText = '비밀번호가 다릅니다!!';
+				managerPw.value= '';
+				managerPwCk.value = '';
+			}
+			else{
+				managerPwCk_text.innerText = '';
+			}
+		}
+		
+		const funcManagerIdCk = () =>{
+			if(managerId.value.length <= 4){
+				managerId.value = '';
+				managerIdCk.innerText = '아이디는 5글자 이상입니다르릉';
+			}
+			else if(!regId.exec(managerId.value)){
+				managerId.value = '';
+				managerIdCk.innerText = '아이디는 한글이 안됩니다.';
+			}
+			else{
+				managerIdCk.innerText = '';
+			}
+		}
+		
+		const funcManagerSubmit = () =>{
+			let ck = false;
+			employeeNum.forEach((item) => {
+				if(item === parseInt(employee_num.value)){
+					ck = true;
+				}
+			})
+			if(!ck){
+				alert('일치하는 사원번호가 없습니다.');
+			}
+			else{
+				alert('관리자 회원가입 성공!!!')
+			}
+		}
+		
+		/*
+		function id_duplication(){
+			idDuplication = false;
+			let ck = true;
+			member_id.forEach((item) => {
+				if(item === registerid.value){
+					alert("중복된 아이디입니다.");
+					registerid.value = '';
+					ck = false;
+				}
+			})
+			if(ck){
+				alert("사용가능한 ID입니다.");
+			}
+		}*/
+	$(document).ready(function() {
+		$('#idDuplicationBtn').click(function() {
+			let id = $('#registerid').val();
+			console.log(id);
+			
+			
+			let param = new URLSearchParams({
+				id : id
+			});
+						
+			fetch('/id_ck', {
+				method: 'POST'
+				,body: param
+			}).then(response => response.json())
+			.then(data => {
+				if(data.status === "1") {
+					alert('존재하는 아이디 입니다.')
+				}else {
+					idDuplication = false;
+					console.log(data)
+					alert('사용가능합니다.')
+				}
+			})
+			.catch(error => {
+				console.error('error: ', error)
+			});
+		});
+	});
+		
+		function id_duplicationCk(){
+			if(idDuplication){
+				alert("아이디 중복확인하셈!!");
+				return false;
+			}
+			return true;
+			
+		}
+		
+		document.getElementById('rrn').addEventListener('input', function(event) {
+		    let value = event.target.value.replace(/[^0-9]/g, ''); // 숫자 이외의 문자는 모두 제거
+		    let formattedValue = '';
+
+		    if (value.length > 6) {
+		        formattedValue = value.slice(0, 6) + '-' + value.slice(6, 13);
+		    } else {
+		        formattedValue = value;
+		    }
+
+		    event.target.value = formattedValue;
+		});
+		
+		function oninputPhone(target) {
+		    target.value = target.value
+		        .replace(/[^0-9]/g, '')
+		        .replace(/(^02.{0}|^01.{1}|[0-9]{3,4})([0-9]{3,4})([0-9]{4})/g, "$1-$2-$3");
+		}
+
+		
+		registerid.addEventListener("change", funcIdCk);
+		registerPwCk.addEventListener("change", funcPwCk);
+		register__select.addEventListener('change', funcRegisterCk);
+		managerPwCk.addEventListener('change', funcManagerCk);
+		managerId.addEventListener('change', funcManagerIdCk);
+	</script>
+</body>
+</html>

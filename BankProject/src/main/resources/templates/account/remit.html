@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+<link rel="stylesheet" href="style/register/makeAccount.css">
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+</head>
+<body>
+<th:block th:replace="layouts/header :: headerFragment"></th:block>
+	<form action="remitComplete" method="post" >
+		<!-- 내가 어떤 계좌를 선택해서 입금 할 것인지 -->
+		<select id="account_num" th:name="account_num" style="width:300px;height:50px;font-size:15pt;">
+			<option value="" selected disabled>계좌선택</option>
+			<option th:each="account : ${accountnum}"
+					th:value="${account}"
+					th:utext="${account}"></option>
+		</select><br>
+		<div class="input-container">
+			<label for="remit_account">계좌 번호 입력</label>
+			<input type="text" name="remit_account" id="remit_account">
+			<button type="button" class="submit" onclick="ckNum()" style="position: absolute; left: 218px; top: 13px;">계좌 확인</button>
+			<br> <!-- 나중에 숫자만 입력할 수 있게 -->
+		</div>
+		<div class="input-container">
+			<input type="text" name="memberName" id="name" readonly>
+			<span id="total-unit" style="top:28%">님에게</span>
+			<br>
+		</div>
+		<div class="input-container">
+			<label for="remit_money">송금 금액</label>
+			<input type="text" name="remit_money" class="remit_money" id="remit_money" required="required">
+			<span id="total-unit">원</span>
+			<br>
+		</div>
+		<div class="input-container">
+			<label for= "remit_text">받는 분에게 표시	</label>
+		 <!-- 나중에 숫자만 입력할 수 있게 -->
+		<input type="text" name="remit_text"><br>
+		</div>
+		<button type="submit" class="submit" onclick="return func()" style="margin-bottom: 30px;" 
+		data-toggle="modal" data-target="myModal">송금하기</button>
+		
+	</form>
+<th:block th:replace="layouts/footer :: footerFragment"></th:block>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+<script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+	<script th:inline="javascript">
+	
+	const accountPW = [[${accountPW}]];
+	console.log(accountPW);
+	let check = false;
+	
+	let name = "";
+	const nameId = document.querySelector("#name");
+	function ckNum(){
+		let remitAccount = $("#remit_account").val();
+			$.ajax({
+			type: "get",
+			url: "/checkAccount",
+			data : {
+				remitAccount : remitAccount
+			},
+			datatype: "json",
+			success : function(data) {
+				if(data.status=="1") {
+				alert('계좌 확인 완료');
+				check = true;	
+				name = data.name;
+				nameId.value = name;
+				console.log("변수 name값: ", name)
+				console.log("보낸 데이터", data)
+				console.log("이름:", data.name);
+			}else {
+				alert('다시 입력 해주세요')
+				check = false;
+				}
+			}
+		});
+     }
+		
+	window.onload = function() {
+		$('#remit_money').on('keyup', () => {
+			let value = $('#remit_money').val().replace(/,/g, '');
+			if (!isNaN(value) && value.trim() !== "") {
+                value = parseInt(value, 10).toLocaleString('ko-KR');
+            }
+            $('#remit_money').val(value);
+        });
+	}
+	
+	
+		const account_num=document.querySelector("#account_num")
+		const remit_money=document.querySelector(".remit_money")
+		const account=[[${account}]]
+		const total = [[${total}]]		
+		
+		function func() {
+			let selectIndex = account_num.selectedIndex;
+			let pwCk = accountPW[selectIndex - 1];
+			let money;		
+			for(let i=0; i<account.length; i++) {
+				console.log(account_num.value)
+				if(account[i]===account_num.value) {
+					money = total[i]
+				}
+			}
+			
+			if (!check) {
+				alert('계좌를 확인해주세요.')
+				return false;
+			}
+			
+			let newremit_money = remit_money.value.replace(/,/g,"");
+			if(parseInt(money) < parseInt(newremit_money)) {
+				
+				alert("잔액이 부족합니다. 다른 계좌를 선택하세요")
+				/*alert(typeof remit_money.value)
+				alert(typeof money)*/
+				return false;
+			}else {
+				let pw = Number(prompt("비번 입력!!"));
+				if(pw != pwCk){
+					alert("틀렸디에!");
+					return false;
+				}
+				else{
+				return true;
+					
+				}
+			}
+			
+		}
+		
+		$(document).ready(function() {
+			$('#remit_money').on('keyup', () => {
+				let value = $('#remit_money').val().replace(/,/g, '');
+				if (!isNaN(value) && value.trim() !== "") {
+	                value = parseInt(value, 10).toLocaleString('ko-KR');
+	            }
+	            $('#remit_money').val(value);
+	        });
+		});
+
+	</script>
+	<!-- 나중에 해야할 것 계좌 + 계좌 별명-->
+
+</body>
+</html>

@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+<link rel="stylesheet" href="style/register/makeAccount.css">
+<link rel="stylesheet" href="style/admin/admin.css">
+</head>
+<body>
+<th:block th:replace="layouts/headerManager :: headerManagerFragment"></th:block>
+<form action="createSaving" method="post">
+		<button type="submit" class="submit">상품등록</button>
+	</form>
+	
+	<div th:each="list:${list}" class="product__items">
+		<hr>
+		<div class="product__name product__common">
+			<span>상품 이름 : </span>
+			<a th:href="@{/detailMain(product_num=${list.product_num})}"
+				th:text="${list.deposit_name}">
+			</a>
+		</div>
+		<div class="product__date product__common">
+			<span>기간 : </span>
+			<span th:text="${list.create_date} + '년'" ></span>
+		</div>
+		<div class="product_rate product__common">
+			<span>비율 : </span>
+			<span th:text="${list.rate} + '%'"></span>
+		</div>		
+		
+	</div>
+	
+	<th:block th:replace="layouts/footer :: footerFragment"></th:block>
+</body>
+</html>

@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>주거래 개설</title>
+<link rel="stylesheet" href="style/register/makeAccount.css">
+</head>
+<body>
+<th:block th:replace="layouts/header :: headerFragment"></th:block>
+	<h1 th:text= " ${mainList.deposit_name} + ' 개설' " class="accountMake__title"></h1>
+
+	 <form action="accountComplete" method="post" id="ck" class="ck">
+				<input type="hidden" name=id th:value="${session.login.id}" >
+		<span>
+				<label for="account_num">계좌번호</label>
+		</span>
+		<span>
+
+				<input type="text" name="account_num" id="account" readonly="readonly">
+
+		</span>
+		
+		<br>
+		<span>
+			<label for="account_pw">계좌 비밀번호</label>
+		</span>
+		<span>
+			<input type="password" name="account_pw" id="account_pw" required>
+		</span>
+		
+		<br>
+		<span>
+			<label for="total">금액</label>
+		</span>
+		<div class="input-container">
+			<span>
+				<input type="text" name="total" id="total" class="total" required>
+				<span id="total-unit">원</span>
+			</span>
+		</div><br>
+		<div class= "commonBtn">
+			<button type="submit" class="submit" id="submit">개설</button>
+			<button type="button" onclick="location.href='/'" class="back">뒤로가기</button> 
+		</div>		
+	</form>
+		
+	
+	<th:block th:replace="layouts/footer :: footerFragment"></th:block>
+
+	<script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.inputmask/5.0.6/jquery.inputmask.min.js"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.19.5/jquery.validate.min.js" integrity="sha512-rstIgDs0xPgmG6RX1Aba4KV5cWJbAMcvRCVmglpam9SoHZiUCyQVDdH2LPlxoHtrv17XWblE/V/PP+Tr04hbtA==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+	<script th:inline="javascript">
+		let fix = 4;
+		
+		let accountnum = '';
+		for(let i = 0; i < 8; i++){
+			accountnum += Math.floor(Math.random()*10);
+		}
+		const account = `${fix}${accountnum}`;
+		document.getElementById('account').value = account;
+		
+		jQuery(function() {
+			const productCK = $('#ck');
+			productCK.validate({
+				rules: {
+					account_pw: {
+						required: true,
+						rangelength: [6,6]
+					},
+					total: {
+						required: true,
+						maxlength: 20
+					}
+				},
+				messages: {
+					account_pw: {
+						required: '필수 입력 항목입니다.',
+						rangelength: '비밀번호는 6자리 입니다.'
+					},
+					total: {
+						required: '필수 입력 항목입니다.',
+						maxlength: '20자 안으로 입력해주세요.'
+					}
+				},
+				success: function(input, element) {
+					var id = element.id + '-error';
+					console.log('input: ', input, 'element: ',element, 'id: ', id, 'element.id',element.id)
+					$('#' + id).remove();
+				}
+			});
+		});
+		
+		
+		
+		$('#submit').click(function() {
+				let account = $('#account').val();
+				
+				let param = new URLSearchParams({
+					account : account
+				});
+				console.log(account);
+				
+				fetch('/account_CK', {
+					method: 'post'
+					,headers: {
+				            'Content-Type': 'application/x-www-form-urlencoded'
+				        }
+					,body: param
+				}).then(response => response.json())
+				.then(data => {
+					//console.log(data.status, typeof data.status) 확인코드
+					if(data.status === 1) {
+						alert('이미 존재하는 상품입니다.');
+					}else {
+						//alert('사용가능합니다.') //완성본은 이거 삭제하면 됨.
+				}
+			})
+			.catch(error => {
+				console.error('Error: ', error)
+			});
+		});
+	
+		$(document).ready(function() {
+			$('#total').on('keyup', () => {
+				let value = $('#total').val().replace(/,/g, '');
+				if (!isNaN(value) && value.trim() !== "") {
+	                value = parseInt(value, 10).toLocaleString('ko-KR');
+	            }
+	            $('#total').val(value);
+	        });
+			$('#account').inputmask('9-9999-9999', { placeholder: "#" });
+		});
+
+
+		
+	</script>
+</body>
+</html>
